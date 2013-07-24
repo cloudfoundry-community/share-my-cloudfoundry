@@ -1,0 +1,17 @@
+%h3 Users
+
+%p Congratulations, your user has been successfully created!
+%p To login to Cloud Foundry use these commands:
+%p gem install cf
+%p
+  cf target
+  = Figaro.env.cf_endpoint
+%p
+  cf login --username
+  = @user_email
+  \--password
+  = @user_password
+  \-o
+  = @organization_name
+  \-s
+  = @space_name

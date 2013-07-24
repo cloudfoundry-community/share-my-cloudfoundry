@@ -1,0 +1,10 @@
+%h3 Users
+
+= form_for :users, url: {controller: 'users', action: 'create'} do |form|
+
+  .form-inputs
+    Enter your email:
+    = email_field_tag :email
+
+  .form-actions
+    = submit_tag 'Create User'

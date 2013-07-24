@@ -9,3 +9,8 @@
 #
 # GMAIL_USERNAME: changeme
 # GMAIL_PASSWORD: changeme
+
+# CloudFoundry Credentials
+CF_ENDPOINT:
+CF_TOKEN:
+CF_REFRESH_TOKEN:

@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-CfAttUsers::Application.config.secret_key_base = '8af1dd170ae30d31c88ee905ded79b1c33def9981947b05e20c3f9dd2b6df22b5211656b68ad3a3381a39ca8f3905e6b2f6178b5e67c06155ae5685b86324637'
+ShareCf::Application.config.secret_token = '8af1dd170ae30d31c88ee905ded79b1c33def9981947b05e20c3f9dd2b6df22b5211656b68ad3a3381a39ca8f3905e6b2f6178b5e67c06155ae5685b86324637'
