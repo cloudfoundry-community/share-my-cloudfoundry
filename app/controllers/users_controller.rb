@@ -7,12 +7,12 @@ class UsersController < ApplicationController
   #
   # @return [void]
   def create
-    user_name = get_user_email
-    user_password = SecureRandom.urlsafe_base64(8)
-    user = create_user(user_name, user_password)
-    if user
-      organization = create_organization(user)
-      space = create_space(organization, user)
+    if user_name = get_user_email
+      user_password = SecureRandom.urlsafe_base64(8)
+      if user = create_user(user_name, user_password)
+        organization = create_organization(user)
+        space = create_space(organization, user)
+      end
     end
 
     respond_to do |format|
@@ -23,7 +23,7 @@ class UsersController < ApplicationController
         @space_name = space.name
         format.html { render action: 'show' }
       else
-        format.html { redirect_to sessions_url, alert: "User #{user_name} is already registered"}
+        format.html { redirect_to sessions_url }
       end
     end
   end
@@ -40,7 +40,10 @@ class UsersController < ApplicationController
     begin
       user = User.new.create(user_name, user_password)
     rescue CFoundry::UAAError => e
-      user = nil if e.message =~ /scim_resource_already_exists/
+      if e.message =~ /scim_resource_already_exists/
+        user = nil
+        flash[:error] = "User #{user_name} is already registered"
+      end
     end
 
     user
@@ -51,7 +54,10 @@ class UsersController < ApplicationController
   #
   # @return [String] User email
   def get_user_email
-    return params['email'] unless auth_hash
+    unless auth_hash
+      return nil if recaptcha_enabled? && !verify_recaptcha
+      return params['email']
+    end
 
     case auth_hash.provider
       when 'twitter'

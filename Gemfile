@@ -17,6 +17,7 @@ gem 'omniauth-github'
 gem 'omniauth-linkedin-oauth2'
 gem 'omniauth-twitter'
 gem 'omniauth-att', :git => 'https://github.com/att-innovate/omniauth-att.git'
+gem 'recaptcha', :require => 'recaptcha/rails'
 
 group :assets do
   gem 'coffee-rails'

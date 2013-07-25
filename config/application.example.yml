@@ -30,7 +30,11 @@ CF_REFRESH_TOKEN:
 #CF_ORGANIZATION_ADD_AUDITOR: false
 
 # Allow register users by email (by default true).
-# EMAIL_REGISTER_ENABLED: true
+#EMAIL_REGISTER_ENABLED: true
+
+# Recaptcha keys (http://www.google.com/recaptcha/whyrecaptcha)
+#RECAPTCHA_PUBLIC_KEY: ''
+#RECAPTCHA_PRIVATE_KEY: ''
 
 # AT&T Client Tokens (https://auth.tfoundry.com/apps)
 #ATT_CLIENT_ID: ''

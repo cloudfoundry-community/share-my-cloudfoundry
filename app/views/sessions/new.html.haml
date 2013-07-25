@@ -5,6 +5,8 @@
     .form-inputs
       Enter your email:
       = email_field_tag :email
+      - if recaptcha_enabled?
+        = recaptcha_tags
       = submit_tag 'Register'
 
 .form-actions
