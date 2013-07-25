@@ -12,7 +12,8 @@ CF_ENDPOINT:
 CF_TOKEN:
 CF_REFRESH_TOKEN:
 
-# Cloud Foundry Organization where to assign new users. If not set, it will create a new Organization for each user.
+# Cloud Foundry Organization where to assign new users. If not set or does not exist,
+# it will create a new Organization with a random name for each user.
 #CF_ORGANIZATION: ''
 
 # Roles to assign to users when assigning to an Organization.

@@ -17,15 +17,19 @@ class UsersController < ApplicationController
     end
 
     if user
+      # Create (or reuse) Organization
       if Figaro.env.respond_to?(:cf_organization)
         organization = Organization.new.get(Figaro.env.cf_organization)
-      else
-        user_prefix = '0'
+      end
+
+      unless organization
+        Rails.logger.debug('aaa')
+        organization_prefix = '0'
         organization_name = user_email.split('@')[0]
         begin
           organization = Organization.new.create(organization_name)
         rescue CFoundry::OrganizationNameTaken
-          organization_name = user_email.split('@')[0] + user_prefix.succ!
+          organization_name = user_email.split('@')[0] + organization_prefix.succ!
           retry
         end
       end
