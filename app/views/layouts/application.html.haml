@@ -4,6 +4,7 @@
     %meta{:content => 'width=device-width, initial-scale=1.0', :name => 'viewport'}
       %title= content_for?(:title) ? yield(:title) : 'Share my Cloud Foundry'
       %meta{:content => content_for?(:description) ? yield(:description) : 'Share my Cloud Foundry', :name => 'description'}
+        %link{:href => 'https://fonts.googleapis.com/css?family=Architects+Daughter', :rel => 'stylesheet', :type => 'text/css'}
         = stylesheet_link_tag 'application', :media => 'all'
         = javascript_include_tag 'application'
         = csrf_meta_tags
@@ -24,9 +25,9 @@
         = render 'layouts/messages'
         = yield
       %aside#sidebar
-        %a.button{:href => "https://github.com/cloudfoundry-community/share-my-cloudfoundry"}
-          %small> View project on
-          GitHub
+        %a.button{:href => "http://cloudfoundry-community.github.io/share-my-cloudfoundry"}
+          %small> View the
+          Instructions
         %p.repo-owner
           %a{:href => "https://github.com/cloudfoundry-community/share-my-cloudfoundry"} share-my-cloudfoundry
           is maintained by the
