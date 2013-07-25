@@ -26,7 +26,7 @@ Password> *******
 
 $ cf push share-my-cloudfoundry --no-start
 Domain> start.internalcf.mycompany.com
-$ cf setup sharing
+$ bundle exec cf setup-sharing
 Transferring your admin credentials to application...
 Deploying...
 {% endhighlight %}
