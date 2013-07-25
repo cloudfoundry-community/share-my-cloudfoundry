@@ -29,8 +29,8 @@ CF_REFRESH_TOKEN:
 #CF_ORGANIZATION_ADD_DEVELOPER: false
 #CF_ORGANIZATION_ADD_AUDITOR: false
 
-# Allow register users by email (true/false)
-EMAIL_REGISTER_ENABLED: true
+# Allow register users by email (by default true).
+# EMAIL_REGISTER_ENABLED: true
 
 # AT&T Client Tokens (https://auth.tfoundry.com/apps)
 #ATT_CLIENT_ID: ''

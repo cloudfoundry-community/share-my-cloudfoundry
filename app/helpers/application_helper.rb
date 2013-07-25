@@ -5,7 +5,8 @@ module ApplicationHelper
   #
   # @return [Boolean] True/False
   def email_register_enabled?
-    Figaro.env.respond_to?(:email_register_enabled) && Figaro.env.email_register_enabled.downcase == 'true'
+    return true unless Figaro.env.respond_to?(:email_register_enabled)
+    Figaro.env.email_register_enabled.downcase == 'true'
   end
 
   ##
