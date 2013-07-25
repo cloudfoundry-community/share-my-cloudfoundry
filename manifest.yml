@@ -1,0 +1,7 @@
+---
+applications:
+- name: me
+  memory: 256M
+  instances: 1
+  host: me
+  path: .
