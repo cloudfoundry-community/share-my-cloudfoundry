@@ -2,12 +2,12 @@ source 'https://rubygems.org'
 ruby '1.9.3'
 
 gem 'rails', '3.2.13'
+gem 'pg'
 
 gem 'bootstrap-sass'
 gem 'figaro'
 gem 'haml-rails'
 gem 'jquery-rails'
-gem 'sqlite3'
 gem 'thin'
 gem 'turbolinks'
 
