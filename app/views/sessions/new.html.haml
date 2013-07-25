@@ -1,10 +1,31 @@
-%h3 Users
+%h3 Create your own account on this Cloud Foundry installation
 
-= form_for :users, url: {controller: 'users', action: 'create'} do |form|
+- if email_register_enabled?
+  = form_for :users, url: {controller: 'users', action: 'create'} do |form|
+    .form-inputs
+      Enter your email:
+      = email_field_tag :email
+      = submit_tag 'Register'
 
-  .form-inputs
-    Enter your email:
-    = email_field_tag :email
+.form-actions
+  Or signin with:
 
-  .form-actions
-    = submit_tag 'Create User'
+  - if att_register_enabled?
+    %a.auth_provider{ href: '/auth/att' }
+      = image_tag 'att_64.png', size: '64x64', alt: 'AT&T'
+
+  - if facebook_register_enabled?
+    %a.auth_provider{ href: '/auth/facebook' }
+      = image_tag 'facebook_64.png', size: '64x64', alt: 'Facebook'
+
+  - if github_register_enabled?
+    %a.auth_provider{ href: '/auth/github' }
+      = image_tag 'github_64.png', size: '64x64'
+
+  - if linkedin_register_enabled?
+    %a.auth_provider{ href: '/auth/linkedin_oauth2' }
+      = image_tag 'linkedin_64.png', size: '64x64', alt: 'Linkedin'
+
+  - if twitter_register_enabled?
+    %a.auth_provider{ href: '/auth/twitter' }
+      = image_tag 'twitter_64.png', size: '64x64', alt: 'Twitter'

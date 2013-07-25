@@ -123,6 +123,9 @@ GEM
     omniauth-github (1.1.1)
       omniauth (~> 1.0)
       omniauth-oauth2 (~> 1.1)
+    omniauth-linkedin-oauth2 (0.0.2)
+      omniauth (~> 1.0)
+      omniauth-oauth2
     omniauth-oauth (1.0.1)
       oauth
       omniauth (~> 1.0)
@@ -204,7 +207,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bootstrap-sass
-  cfoundry (>= 3.0.1)
+  cfoundry (>= 4.0.1)
   coffee-rails
   figaro
   haml-rails
@@ -213,6 +216,7 @@ DEPENDENCIES
   omniauth-att!
   omniauth-facebook
   omniauth-github
+  omniauth-linkedin-oauth2
   omniauth-twitter
   quiet_assets
   rails (= 3.2.13)

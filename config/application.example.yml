@@ -6,11 +6,31 @@
 # GMAIL_USERNAME: Your_Gmail_Username
 # makes 'Your_Gmail_Username' available as ENV["GMAIL_USERNAME"]
 # Add application configuration variables here, as shown below.
-#
-# GMAIL_USERNAME: changeme
-# GMAIL_PASSWORD: changeme
 
 # CloudFoundry Credentials
 CF_ENDPOINT:
 CF_TOKEN:
 CF_REFRESH_TOKEN:
+
+# Allow register users by email (true/false)
+EMAIL_REGISTER_ENABLED: true
+
+# AT&T Client Tokens (https://auth.tfoundry.com/apps)
+#ATT_CLIENT_ID: ''
+#ATT_CLIENT_SECRET: ''
+
+# Facebook Client Tokens (https://developers.facebook.com/apps)
+#FACEBOOK_KEY: ''
+#FACEBOOK_SECRET: ''
+
+# Github Client Tokens (https://github.com/settings/applications)
+#GITHUB_KEY: ''
+#GITHUB_SECRET: ''
+
+# Linkedin Client Tokens (https://www.linkedin.com/secure/developer)
+#LINKEDIN_KEY: ''
+#LINKEDIN_SECRET: ''
+
+# Twitter Client Tokens (https://dev.twitter.com/apps)
+#TWITTER_KEY: ''
+#TWITTER_SECRET: ''

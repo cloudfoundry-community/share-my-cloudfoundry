@@ -1,20 +1,16 @@
 class UsersController < ApplicationController
 
-  def show
-
-  end
-
   ##
   # Creates a new User and assigns an Organization and Space to the user
   #
   def create
+    user_email = get_user_email
+
     # Create User
-    user_email = params['email']
     user_random_password = SecureRandom.urlsafe_base64(8)
     begin
       user = User.new.create(user_email, user_random_password)
     rescue CFoundry::UAAError => e
-      Rails.logger.debug(user.inspect)
       user = nil if e.message =~ /scim_resource_already_exists/
     end
 
@@ -46,6 +42,25 @@ class UsersController < ApplicationController
 
   private
 
+  ##
+  # Retrieves the User email
+  #
+  # @return [String] User email
+  def get_user_email
+    return params['email'] unless auth_hash
+
+    case auth_hash.provider
+      when 'twitter'
+        auth_hash.info.nickname
+      else
+        auth_hash.info.email
+    end
+  end
+
+  ##
+  # Returns OmniAuth Authentication Hash
+  #
+  # @return [Hash] OmniAuth Authentication Hash
   def auth_hash
     request.env['omniauth.auth']
   end

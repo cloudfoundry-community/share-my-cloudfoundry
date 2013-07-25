@@ -3,7 +3,7 @@ ShareCf::Application.routes.draw do
   get  'users',    to: 'users#show'
   post 'users',    to: 'users#create'
 
-  match '/auth/:provider/callback' => 'users#create'
+  match '/auth/:provider/callback', to: 'users#create'
 
   root to: 'sessions#new'
 end

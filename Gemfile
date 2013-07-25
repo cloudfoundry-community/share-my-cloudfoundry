@@ -11,9 +11,10 @@ gem 'sqlite3'
 gem 'thin'
 gem 'turbolinks'
 
-gem 'cfoundry', '>= 3.0.1'
+gem 'cfoundry', '>= 4.0.1'
 gem 'omniauth-facebook'
 gem 'omniauth-github'
+gem 'omniauth-linkedin-oauth2'
 gem 'omniauth-twitter'
 gem 'omniauth-att', :git => 'https://github.com/att-innovate/omniauth-att.git'
 
