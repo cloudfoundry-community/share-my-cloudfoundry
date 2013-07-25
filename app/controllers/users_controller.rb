@@ -6,49 +6,16 @@ class UsersController < ApplicationController
   # Creates a new User and assigns an Organization and Space to the user
   #
   def create
-    user_email = get_user_email
-
-    # Create User
-    user_random_password = SecureRandom.urlsafe_base64(8)
-    begin
-      user = User.new.create(user_email, user_random_password)
-    rescue CFoundry::UAAError => e
-      user = nil if e.message =~ /scim_resource_already_exists/
-    end
-
+    user_name = get_user_email
+    user_password = SecureRandom.urlsafe_base64(8)
+    user = create_user(user_name, user_password)
     if user
-      # Create (or reuse) Organization
-      if Figaro.env.respond_to?(:cf_organization)
-        organization = Organization.new.get(Figaro.env.cf_organization)
-      end
-
-      unless organization
-        Rails.logger.debug('aaa')
-        organization_prefix = '0'
-        organization_name = user_email.split('@')[0]
-        begin
-          organization = Organization.new.create(organization_name)
-        rescue CFoundry::OrganizationNameTaken
-          organization_name = user_email.split('@')[0] + organization_prefix.succ!
-          retry
-        end
-      end
-
-      # Add Users and Roles to the Organization
-      Organization.new.add_user(organization, user)
-      Organization.new.assign_roles(organization, user, organization_roles) if organization_roles.any?
-
-      # Create (or reuse) Space
-      space_name = Figaro.env.respond_to?(:cf_space) ? Figaro.env.cf_space : DEFAULT_SPACE_NAME
-      space = Space.new.get(space_name, organization)
-      space = Space.new.create(space_name, organization) unless space
-
-      # Add Roles to the Space
-      Space.new.assign_roles(space, user, space_roles) if space_roles.any?
+      organization = create_organization(user)
+      space = create_space(organization, user)
 
       # Fill instance vars
-      @user_email = user_email
-      @user_password = user_random_password
+      @user_email = user_name
+      @user_password = user_password
       @organization_name = organization.name
       @space_name = space.name
     end
@@ -59,6 +26,22 @@ class UsersController < ApplicationController
   end
 
   private
+
+  ##
+  # Creates an User
+  #
+  # @param [String] user_name User name
+  # @param [String] user_password User password
+  # @return [CFoundry::V2::User] User
+  def create_user(user_name, user_password)
+    begin
+      user = User.new.create(user_name, user_password)
+    rescue CFoundry::UAAError => e
+      user = nil if e.message =~ /scim_resource_already_exists/
+    end
+
+    user
+  end
 
   ##
   # Retrieves the User email
@@ -84,6 +67,33 @@ class UsersController < ApplicationController
   end
 
   ##
+  # Creates (or reuses) an Organization and adds Users and Roles
+  #
+  # @param [CFoundry::V2::User] user User to assign Roles in the Spac
+  # @return [CFoundry::V2::Organization] Organization
+  def create_organization(user)
+    if Figaro.env.respond_to?(:cf_organization)
+      organization = Organization.new.get(Figaro.env.cf_organization)
+    end
+
+    unless organization
+      organization_prefix = '0'
+      organization_name = user.name.split('@')[0]
+      begin
+        organization = Organization.new.create(organization_name)
+      rescue CFoundry::OrganizationNameTaken
+        organization_name = user.name.split('@')[0] + organization_prefix.succ!
+        retry
+      end
+    end
+
+    Organization.new.add_user(organization, user)
+    Organization.new.assign_roles(organization, user, organization_roles) if organization_roles.any?
+
+    organization
+  end
+
+  ##
   # Retrieves the Roles to assign to Users in an Organization
   #
   # @return [Array<String>] Arrays of roles to assign to users in an Organization
@@ -106,6 +116,22 @@ class UsersController < ApplicationController
     end
 
     roles
+  end
+
+  ##
+  # Creates (or reuses) a Space and adds Roles to a User in the Space
+  #
+  # @param [CFoundry::V2::Organization] organization Parent Organization
+  # @param [CFoundry::V2::User] user User to assign Roles in the Space
+  # @return [CFoundry::V2::Space] Space
+  def create_space(organization, user)
+    space_name = Figaro.env.respond_to?(:cf_space) ? Figaro.env.cf_space : DEFAULT_SPACE_NAME
+    space = Space.new.get(space_name, organization)
+    space = Space.new.create(space_name, organization) unless space
+
+    Space.new.assign_roles(space, user, space_roles) if space_roles.any?
+
+    space
   end
 
   ##
