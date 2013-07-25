@@ -8,15 +8,31 @@
         = javascript_include_tag 'application'
         = csrf_meta_tags
   %body
-    %header.navbar.navbar-fixed-top
-      %nav.navbar-inner
-        .container
-          = render 'layouts/navigation'
-    %main{:role => 'main'}
-      .container
-        .content
-          .row
-            .span12
-              = render 'layouts/messages'
-              = yield
-          %footer
+  %header
+    .inner
+      %h1
+        Share my
+        %br>/
+        Cloud Foundry
+      %h2 Let anyone at your company create their own account on your Cloud Foundry installation
+      %a.button{:href => "https://github.com/cloudfoundry-community/share-my-cloudfoundry"}
+        %small> View project on
+        GitHub
+  #content-wrapper
+    .inner.clearfix
+      %section#main-content
+        = render 'layouts/messages'
+        = yield
+      %aside#sidebar
+        %a.button{:href => "https://github.com/cloudfoundry-community/share-my-cloudfoundry"}
+          %small> View project on
+          GitHub
+        %p.repo-owner
+          %a{:href => "https://github.com/cloudfoundry-community/share-my-cloudfoundry"} share-my-cloudfoundry
+          is maintained by the
+          = succeed "." do
+            %a{:href => "https://github.com/cloudfoundry-community"} cloudfoundry-community
+        %p
+          This page is using the Architect theme by
+          = succeed "." do
+            %a{:href => "https://twitter.com/jasonlong"} Jason Long
