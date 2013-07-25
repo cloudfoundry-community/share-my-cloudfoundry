@@ -1,4 +1,16 @@
-%h3 Create your own account on this Cloud Foundry installation
+- content_for(:header) do
+  .inner
+    %h1
+      Get access to
+      %br>/
+      Cloud Foundry
+    %h2 You and everyone else can deploy and run applications on our Cloud Foundry
+    %a.button{:href => "https://github.com/cloudfoundry-community/share-my-cloudfoundry"}
+      %small> View project on
+      GitHub
+
+
+%h3 Step 1. Register
 
 - if email_register_enabled?
   = form_for :users, url: {controller: 'users', action: 'create'} do |form|

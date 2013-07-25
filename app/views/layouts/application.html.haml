@@ -10,15 +10,18 @@
         = csrf_meta_tags
   %body
   %header
-    .inner
-      %h1
-        Share my
-        %br>/
-        Cloud Foundry
-      %h2 Let anyone at your company create their own account on your Cloud Foundry installation
-      %a.button{:href => "https://github.com/cloudfoundry-community/share-my-cloudfoundry"}
-        %small> View project on
-        GitHub
+    - if content_for? :header
+      = yield :header
+    - else
+      .inner
+        %h1
+          Share my
+          %br>/
+          Cloud Foundry
+        %h2 Let anyone at your company create their own account on your Cloud Foundry installation
+        %a.button{:href => "https://github.com/cloudfoundry-community/share-my-cloudfoundry"}
+          %small> View project on
+          GitHub
   #content-wrapper
     .inner.clearfix
       %section#main-content
