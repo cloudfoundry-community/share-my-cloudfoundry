@@ -15,15 +15,22 @@ class UsersController < ApplicationController
     end
 
     if user
-      # Create organization
-      user_prefix = '0'
-      organization_name = user_email.split('@')[0]
-      begin
-        organization = Organization.new.create(organization_name, user)
-      rescue CFoundry::OrganizationNameTaken
-        organization_name = user_email.split('@')[0] + user_prefix.succ!
-        retry
+      if Figaro.env.respond_to?(:cf_organization)
+        organization = Organization.new.get(Figaro.env.cf_organization)
+      else
+        user_prefix = '0'
+        organization_name = user_email.split('@')[0]
+        begin
+          organization = Organization.new.create(organization_name)
+        rescue CFoundry::OrganizationNameTaken
+          organization_name = user_email.split('@')[0] + user_prefix.succ!
+          retry
+        end
       end
+
+      # Add Users and Roles to the Organization
+      Organization.new.add_user(organization, user)
+      Organization.new.assign_roles(organization, user, organization_roles) if organization_roles.any?
 
       # Create Space
       space = Space.new.create('development', organization, user)
@@ -55,6 +62,28 @@ class UsersController < ApplicationController
       else
         auth_hash.info.email
     end
+  end
+
+  ##
+  # Retrieves the Roles to assign to Users in an Organization
+  #
+  # @return [Array<String>] Arrays of roles to assign to users in an organization
+  def organization_roles
+    roles = []
+
+    if Figaro.env.respond_to?(:cf_organization_add_manager) && Figaro.env.cf_organization_add_manager == 'true'
+      roles << 'manager'
+    end
+
+    if Figaro.env.respond_to?(:cf_organization_add_billing_manager) && Figaro.env.cf_organization_add_billing_manager == 'true'
+      roles << 'billing_manager'
+    end
+
+    if Figaro.env.respond_to?(:cf_organization_add_auditor) && Figaro.env.cf_organization_add_auditor == 'true'
+      roles << 'auditor'
+    end
+
+    roles
   end
 
   ##

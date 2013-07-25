@@ -12,6 +12,14 @@ CF_ENDPOINT:
 CF_TOKEN:
 CF_REFRESH_TOKEN:
 
+# Cloud Foundry Organization where to assign new users. If not set, it will create a new organization for each user.
+#CF_ORGANIZATION: ''
+
+# Roles to assign to users when assigning to an Organization.
+#CF_ORGANIZATION_ADD_MANAGER: false
+#CF_ORGANIZATION_ADD_BILLING_MANAGER: false
+#CF_ORGANIZATION_ADD_AUDITOR: false
+
 # Allow register users by email (true/false)
 EMAIL_REGISTER_ENABLED: true
 
