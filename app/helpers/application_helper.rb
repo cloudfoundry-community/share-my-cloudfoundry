@@ -10,6 +10,18 @@ module ApplicationHelper
   end
 
   ##
+  # Returns true if any OAuth method is enabled
+  #
+  # @return [Boolean] True/False
+  def any_oauth_register_enabled?
+    facebook_register_enabled? ||
+    github_register_enabled? ||
+    linkedin_register_enabled? ||
+    twitter_register_enabled? ||
+    att_register_enabled?
+  end
+
+  ##
   # Returns if register by Facebook is enabled
   #
   # @return [Boolean] True/False

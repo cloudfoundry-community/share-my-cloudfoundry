@@ -21,25 +21,29 @@
         = recaptcha_tags
       = submit_tag 'Register'
 
-.form-actions
-  Or signin with:
+- if any_oauth_register_enabled?
+  .form-actions
+    - if email_register_enabled?
+      Or sign in with:
+    - else
+      Sign in with:
 
-  - if att_register_enabled?
-    %a.auth_provider{ href: '/auth/att' }
-      = image_tag 'att_64.png', size: '64x64', alt: 'AT&T'
+    - if att_register_enabled?
+      %a.auth_provider{ href: '/auth/att' }
+        = image_tag 'att_64.png', size: '64x64', alt: 'AT&T'
 
-  - if facebook_register_enabled?
-    %a.auth_provider{ href: '/auth/facebook' }
-      = image_tag 'facebook_64.png', size: '64x64', alt: 'Facebook'
+    - if facebook_register_enabled?
+      %a.auth_provider{ href: '/auth/facebook' }
+        = image_tag 'facebook_64.png', size: '64x64', alt: 'Facebook'
 
-  - if github_register_enabled?
-    %a.auth_provider{ href: '/auth/github' }
-      = image_tag 'github_64.png', size: '64x64'
+    - if github_register_enabled?
+      %a.auth_provider{ href: '/auth/github' }
+        = image_tag 'github_64.png', size: '64x64'
 
-  - if linkedin_register_enabled?
-    %a.auth_provider{ href: '/auth/linkedin_oauth2' }
-      = image_tag 'linkedin_64.png', size: '64x64', alt: 'Linkedin'
+    - if linkedin_register_enabled?
+      %a.auth_provider{ href: '/auth/linkedin_oauth2' }
+        = image_tag 'linkedin_64.png', size: '64x64', alt: 'Linkedin'
 
-  - if twitter_register_enabled?
-    %a.auth_provider{ href: '/auth/twitter' }
-      = image_tag 'twitter_64.png', size: '64x64', alt: 'Twitter'
+    - if twitter_register_enabled?
+      %a.auth_provider{ href: '/auth/twitter' }
+        = image_tag 'twitter_64.png', size: '64x64', alt: 'Twitter'
