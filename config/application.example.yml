@@ -20,8 +20,8 @@ CF_REFRESH_TOKEN:
 #CF_ORGANIZATION_ADD_BILLING_MANAGER: false
 #CF_ORGANIZATION_ADD_AUDITOR: false
 
-# Cloud Foundry Space where to assign new users. If not set, it will create a new Space called 'development' for each user.
-#CF_SPACE: ''
+# Cloud Foundry Space where to assign new users. If not set, it will create (or reuse) a Space called 'development'.
+#CF_SPACE: 'development'
 
 # Roles to assign to users when assigning to a Space.
 #CF_ORGANIZATION_ADD_MANAGER: false

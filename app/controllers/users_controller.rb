@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
 
+  DEFAULT_SPACE_NAME = 'development'
+
   ##
   # Creates a new User and assigns an Organization and Space to the user
   #
@@ -32,12 +34,10 @@ class UsersController < ApplicationController
       Organization.new.add_user(organization, user)
       Organization.new.assign_roles(organization, user, organization_roles) if organization_roles.any?
 
-      # Create Space
-      if Figaro.env.respond_to?(:cf_space)
-        space = Space.new.get(Figaro.env.cf_space, organization)
-      else
-        space = Space.new.create('development', organization)
-      end
+      # Create (or reuse) Space
+      space_name = Figaro.env.respond_to?(:cf_space) ? Figaro.env.cf_space : DEFAULT_SPACE_NAME
+      space = Space.new.get(space_name, organization)
+      space = Space.new.create(space_name, organization) unless space
 
       # Add Roles to the Space
       Space.new.assign_roles(space, user, space_roles) if space_roles.any?
