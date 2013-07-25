@@ -5,6 +5,7 @@ class UsersController < ApplicationController
   ##
   # Creates a new User and assigns an Organization and Space to the user
   #
+  # @return [void]
   def create
     user_name = get_user_email
     user_password = SecureRandom.urlsafe_base64(8)
@@ -12,16 +13,18 @@ class UsersController < ApplicationController
     if user
       organization = create_organization(user)
       space = create_space(organization, user)
-
-      # Fill instance vars
-      @user_email = user_name
-      @user_password = user_password
-      @organization_name = organization.name
-      @space_name = space.name
     end
 
     respond_to do |format|
-      format.html { render action: 'show' }
+      if user
+        @user_email = user_name
+        @user_password = user_password
+        @organization_name = organization.name
+        @space_name = space.name
+        format.html { render action: 'show' }
+      else
+        format.html { redirect_to sessions_url, alert: "User #{user_name} is already registered"}
+      end
     end
   end
 
