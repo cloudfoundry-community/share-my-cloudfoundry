@@ -36,7 +36,7 @@ class Organization < CfClient
   # Assigns a Role to a User in an Organization
   #
   # @param [CFoundry::V2::Organization] organization Organization
-  # @param [CFoundry::V2::User] user User to assign the role
+  # @param [CFoundry::V2::User] user User to assign the Role
   # @parma [Array<String>] organization_roles Roles to assign to the User
   # @return [void]
   def assign_roles(organization, user, organization_roles)

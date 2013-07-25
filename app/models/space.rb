@@ -1,33 +1,41 @@
 class Space < CfClient
 
   ##
+  # Returns a Space
+  #
+  # @param [String] space_name Name of the Space
+  # @param [CFoundry::V2::Organization] organization Parent Organization
+  # @return [CFoundry::V2::Space] Space
+  def get(space_name, organization)
+    organization.spaces.find { |s| s.name == space_name }
+  end
+
+  ##
   # Creates a new Space
   #
   # @param [String] space_name Name of the new Space
   # @param [CFoundry::V2::Organization] organization Parent Organization
-  # @param [CFoundry::V2::User] user User to add to the Space
   # @return [CFoundry::V2::Space] Space
-  def create(space_name, organization, user = nil)
+  def create(space_name, organization)
     space = client.space
-    space.organization = organization
     space.name = space_name
+    space.organization = organization
     space.create!
-
-    add_user(space, user) if user
 
     space
   end
 
   ##
-  # Add a User to a Space
+  # Assigns a Role to a User in a Space
   #
   # @param [CFoundry::V2::Space] space Space
-  # @param [CFoundry::V2::User] user User to add to the Space
+  # @param [CFoundry::V2::User] user User to assign the Role
+  # @parma [Array<String>] space_roles Roles to assign to the User
   # @return [void]
-  def add_user(space, user)
-    space.add_manager user
-    space.add_developer user
-    space.add_auditor user
+  def assigns_roles(space, user, space_roles)
+    space.add_manager user if space_roles.include?('manager')
+    space.add_developer user if space_roles.include?('developer')
+    space.add_auditor user if space_roles.include?('auditor')
   end
 
 end

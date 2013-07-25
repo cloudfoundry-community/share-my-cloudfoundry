@@ -33,7 +33,14 @@ class UsersController < ApplicationController
       Organization.new.assign_roles(organization, user, organization_roles) if organization_roles.any?
 
       # Create Space
-      space = Space.new.create('development', organization, user)
+      if Figaro.env.respond_to?(:cf_space)
+        space = Space.new.get(Figaro.env.cf_space, organization)
+      else
+        space = Space.new.create('development', organization)
+      end
+
+      # Add Roles to the Space
+      Space.new.assign_roles(space, user, space_roles) if space_roles.any?
 
       # Fill instance vars
       @user_email = user_email
@@ -65,21 +72,32 @@ class UsersController < ApplicationController
   end
 
   ##
+  # Returns OmniAuth Authentication Hash
+  #
+  # @return [Hash] OmniAuth Authentication Hash
+  def auth_hash
+    request.env['omniauth.auth']
+  end
+
+  ##
   # Retrieves the Roles to assign to Users in an Organization
   #
-  # @return [Array<String>] Arrays of roles to assign to users in an organization
+  # @return [Array<String>] Arrays of roles to assign to users in an Organization
   def organization_roles
     roles = []
 
-    if Figaro.env.respond_to?(:cf_organization_add_manager) && Figaro.env.cf_organization_add_manager == 'true'
+    if Figaro.env.respond_to?(:cf_organization_add_manager) &&
+       Figaro.env.cf_organization_add_manager.downcase == 'true'
       roles << 'manager'
     end
 
-    if Figaro.env.respond_to?(:cf_organization_add_billing_manager) && Figaro.env.cf_organization_add_billing_manager == 'true'
+    if Figaro.env.respond_to?(:cf_organization_add_billing_manager) &&
+       Figaro.env.cf_organization_add_billing_manager.downcase == 'true'
       roles << 'billing_manager'
     end
 
-    if Figaro.env.respond_to?(:cf_organization_add_auditor) && Figaro.env.cf_organization_add_auditor == 'true'
+    if Figaro.env.respond_to?(:cf_organization_add_auditor) &&
+       Figaro.env.cf_organization_add_auditor.downcase == 'true'
       roles << 'auditor'
     end
 
@@ -87,10 +105,28 @@ class UsersController < ApplicationController
   end
 
   ##
-  # Returns OmniAuth Authentication Hash
+  # Retrieves the Roles to assign to Users in a Space
   #
-  # @return [Hash] OmniAuth Authentication Hash
-  def auth_hash
-    request.env['omniauth.auth']
+  # @return [Array<String>] Arrays of roles to assign to users in a Space
+  def space_roles
+    roles = []
+
+    if Figaro.env.respond_to?(:cf_space_add_manager) &&
+       Figaro.env.cf_space_add_manager.downcase == 'true'
+      roles << 'manager'
+    end
+
+    if Figaro.env.respond_to?(:cf_space_add_developer) &&
+       Figaro.env.cf_space_add_developer.downcase == 'true'
+      roles << 'developer'
+    end
+
+    if Figaro.env.respond_to?(:cf_space_add_auditor) &&
+       Figaro.env.cf_organization_add_auditor.downcase == 'true'
+      roles << 'auditor'
+    end
+
+    roles
   end
+
 end
