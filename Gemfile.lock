@@ -12,6 +12,11 @@ GIT
       sinatra
       thin
 
+PATH
+  remote: cf-plugin
+  specs:
+    sharing-cf-plugin (1.0.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -42,6 +47,7 @@ GEM
     activesupport (3.2.13)
       i18n (= 0.6.1)
       multi_json (~> 1.0)
+    addressable (2.3.5)
     arel (3.0.2)
     better_errors (0.9.0)
       coderay (>= 1.0.0)
@@ -51,9 +57,21 @@ GEM
     bootstrap-sass (2.3.2.1)
       sass (~> 3.2)
     builder (3.0.4)
+    caldecott-client (0.0.2)
+      multi_json (~> 1.3)
+    cf (4.2.0)
+      addressable (~> 2.2)
+      caldecott-client (~> 0.0.2)
+      cfoundry (>= 2.4.0, < 3.0)
+      interact (~> 0.5)
+      json_pure (~> 1.6)
+      mothership (>= 0.5.1, < 1.0)
+      multi_json (~> 1.3)
+      rest-client (~> 1.6)
+      uuidtools (~> 2.1)
     cf-uaa-lib (1.3.10)
       multi_json
-    cfoundry (4.0.1)
+    cfoundry (2.4.0)
       activemodel (~> 3.2.13)
       cf-uaa-lib (~> 1.3.10)
       multi_json (~> 1.7)
@@ -95,17 +113,20 @@ GEM
       ruby_parser (~> 3.1.1)
     httpauth (0.2.0)
     i18n (0.6.1)
+    interact (0.5.2)
     journey (1.0.4)
     jquery-rails (3.0.4)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     json (1.8.0)
+    json_pure (1.8.0)
     jwt (0.1.8)
       multi_json (>= 1.5)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.23)
+    mothership (0.5.1)
     multi_json (1.7.7)
     multipart-post (1.2.0)
     oauth (0.4.7)
@@ -162,6 +183,8 @@ GEM
     rake (10.1.0)
     rdoc (3.12.2)
       json (~> 1.4)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
     ruby_parser (3.1.3)
       sexp_processor (~> 4.1)
     rubyzip (0.9.9)
@@ -196,6 +219,7 @@ GEM
     uglifier (2.1.2)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
+    uuidtools (2.1.4)
 
 PLATFORMS
   ruby
@@ -204,7 +228,8 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bootstrap-sass
-  cfoundry (>= 3.0.1)
+  cf
+  cfoundry (>= 2.4.0, < 3.0)
   coffee-rails
   figaro
   haml-rails
@@ -217,6 +242,7 @@ DEPENDENCIES
   quiet_assets
   rails (= 3.2.13)
   sass-rails
+  sharing-cf-plugin!
   sqlite3
   thin
   turbolinks

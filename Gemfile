@@ -11,7 +11,9 @@ gem 'sqlite3'
 gem 'thin'
 gem 'turbolinks'
 
-gem 'cfoundry', '>= 3.0.1'
+# gem 'cfoundry', '>= 3.0.1'
+# TODO why doesn't cf gem use latest cfoundry?!
+gem "cfoundry", ">= 2.4.0", "< 3.0"
 gem 'omniauth-facebook'
 gem 'omniauth-github'
 gem 'omniauth-twitter'
@@ -28,4 +30,7 @@ group :development do
   gem 'binding_of_caller', :platforms=>[:mri_19, :rbx]
   gem 'html2haml'
   gem 'quiet_assets'
+
+  gem 'cf'
+  gem 'sharing-cf-plugin', :path => 'cf-plugin'
 end
