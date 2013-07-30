@@ -48,6 +48,9 @@ CF_REFRESH_TOKEN:
 #GITHUB_KEY: ''
 #GITHUB_SECRET: ''
 
+# Restrict Github users belonging to an organization
+#GITHUB_ORGANIZATION: ''
+
 # Linkedin Client Tokens (https://www.linkedin.com/secure/developer)
 #LINKEDIN_KEY: ''
 #LINKEDIN_SECRET: ''

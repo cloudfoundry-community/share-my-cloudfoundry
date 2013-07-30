@@ -23,7 +23,7 @@ class UsersController < ApplicationController
         @space_name = space.name
         format.html { render action: 'show' }
       else
-        format.html { redirect_to sessions_url }
+        format.html { render 'sessions/new' }
       end
     end
   end
@@ -40,9 +40,11 @@ class UsersController < ApplicationController
     begin
       user = User.new.create(user_name, user_password)
     rescue CFoundry::UAAError => e
+      user = nil
       if e.message =~ /scim_resource_already_exists/
-        user = nil
         flash[:error] = "User #{user_name} is already registered"
+      else
+        flash[:error] = e.message
       end
     end
 
@@ -62,9 +64,45 @@ class UsersController < ApplicationController
     case auth_hash.provider
       when 'twitter'
         auth_hash.info.nickname
+      when 'github'
+        check_user_github_organizations ? auth_hash.info.email : nil
       else
         auth_hash.info.email
     end
+  end
+
+  ##
+  # Checks if a user belongs to a github organization
+  #
+  # @return [Boolean]
+  def check_user_github_organizations
+    if Figaro.env.respond_to?(:github_organization)
+      github_orgs_url = auth_hash.extra.raw_info.organizations_url + '?access_token=' + auth_hash.credentials.token
+      user_organizations = get_user_github_organizations(github_orgs_url)
+      unless user_organizations.include?(Figaro.env.github_organization)
+        flash[:error] = 'User not authorized'
+        return false
+      end
+    end
+
+    true
+  end
+
+  ##
+  # Gets all organizations a user belong to.
+  #
+  # @param [String] Github Organizations API URL
+  # @return [Array<String>] Organizations
+  def get_user_github_organizations(github_orgs_url)
+    uri = URI.parse(github_orgs_url)
+
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = uri.scheme == 'https'
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+    response = http.request(Net::HTTP::Get.new(uri.request_uri))
+
+    user_organizations = JSON.parse(response.body)
+    user_organizations.map { |o| o['login'] }
   end
 
   ##
