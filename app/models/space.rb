@@ -32,7 +32,7 @@ class Space < CfClient
   # @param [CFoundry::V2::User] user User to assign the Role
   # @parma [Array<String>] space_roles Roles to assign to the User
   # @return [void]
-  def assigns_roles(space, user, space_roles)
+  def assign_roles(space, user, space_roles)
     space.add_manager user if space_roles.include?('manager')
     space.add_developer user if space_roles.include?('developer')
     space.add_auditor user if space_roles.include?('auditor')
