@@ -25,9 +25,9 @@ CF_REFRESH_TOKEN:
 #CF_SPACE: 'development'
 
 # Roles to assign to users when assigning to a Space.
-#CF_ORGANIZATION_ADD_MANAGER: false
-#CF_ORGANIZATION_ADD_DEVELOPER: false
-#CF_ORGANIZATION_ADD_AUDITOR: false
+#CF_SPACE_ADD_MANAGER: false
+#CF_SPACE_ADD_DEVELOPER: false
+#CF_SPACE_ADD_AUDITOR: false
 
 # Allow register users by email (by default true).
 #EMAIL_REGISTER_ENABLED: true
