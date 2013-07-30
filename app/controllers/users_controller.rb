@@ -87,11 +87,11 @@ class UsersController < ApplicationController
 
     unless organization
       organization_prefix = '0'
-      organization_name = user.name.split('@')[0]
+      organization_name = user.email.split('@')[0]
       begin
         organization = Organization.new.create(organization_name)
       rescue CFoundry::OrganizationNameTaken
-        organization_name = user.name.split('@')[0] + organization_prefix.succ!
+        organization_name = user.email.split('@')[0] + organization_prefix.succ!
         retry
       end
     end
