@@ -9,7 +9,7 @@ You've deployed Cloud Foundry (no? [follow this tutorial](https://github.com/clo
 
 Run this app on your Cloud Foundry and email out the URL. In minutes everyone will create their own account, be educated on how to get started, logged in and deploying applications.
 
-You become the quiet hero. You saved lives and you created less work for yourself.
+You become the quiet hero. You saved lives and you created less work for yourself. People can look after themselves.
 
 You can enable anyone - staff, contractors or friends - to create accounts with just their email address, integrate with your internal OAuth provider, or integrate with a public OAuth provider (such as Github) to verify their humanity and their email address.
 
