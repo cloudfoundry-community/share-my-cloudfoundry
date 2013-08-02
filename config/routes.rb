@@ -4,6 +4,7 @@ ShareCf::Application.routes.draw do
   post 'users',    to: 'users#create'
 
   match '/auth/:provider/callback', to: 'users#create'
+  match '/auth/failure', to: 'sessions#failure'
 
   root to: 'sessions#new'
 end
