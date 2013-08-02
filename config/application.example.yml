@@ -39,7 +39,7 @@ CF_REFRESH_TOKEN:
 # Overrides the Omniauth host (eg if you want to enforce a http/https callback uri)
 #OMNIAUTH_FULL_HOST: ''
 
-# AT&T Client Tokens (https://auth.tfoundry.com/apps)
+# AT&T Client Tokens (https://apimatrix.tfoundry.com/apps)
 #ATT_CLIENT_ID: ''
 #ATT_CLIENT_SECRET: ''
 
