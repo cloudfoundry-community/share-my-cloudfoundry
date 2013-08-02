@@ -6,6 +6,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
   provider :twitter, ENV['TWITTER_KEY'], ENV['TWITTER_SECRET']
 end
 
+OmniAuth.config.full_host = ENV['OMNIAUTH_FULL_HOST'] if ENV['OMNIAUTH_FULL_HOST']
 OmniAuth.config.on_failure = Proc.new { |env|
   OmniAuth::FailureEndpoint.new(env).redirect_to_failure
 }

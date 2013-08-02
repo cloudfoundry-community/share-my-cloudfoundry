@@ -36,6 +36,9 @@ CF_REFRESH_TOKEN:
 #RECAPTCHA_PUBLIC_KEY: ''
 #RECAPTCHA_PRIVATE_KEY: ''
 
+# Overrides the Omniauth host (eg if you want to enforce a http/https callback uri)
+#OMNIAUTH_FULL_HOST: ''
+
 # AT&T Client Tokens (https://auth.tfoundry.com/apps)
 #ATT_CLIENT_ID: ''
 #ATT_CLIENT_SECRET: ''
