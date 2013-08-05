@@ -31,3 +31,7 @@
   - if twitter_register_enabled?
     %a.auth_provider{ href: '/auth/twitter' }
       = image_tag 'twitter_64.png', size: '64x64', alt: 'Twitter'
+
+  - if cf_uaa_register_enabled?
+    %a.auth_provider{ href: '/auth/cloudfoundry' }
+      = image_tag 'cloudfoundry_64.png', size: '64x64', alt: 'Cloud Foundry'

@@ -12,6 +12,15 @@ GIT
       sinatra
       thin
 
+GIT
+  remote: https://github.com/cloudfoundry/omniauth-uaa-oauth2.git
+  revision: ffa3468e93952f9f878524dabb1b6d909ba3e9fb
+  specs:
+    omniauth-uaa-oauth2 (0.0.3)
+      cf-uaa-lib
+      cf-uaa-lib
+      omniauth (~> 1.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -219,6 +228,7 @@ DEPENDENCIES
   omniauth-github
   omniauth-linkedin-oauth2
   omniauth-twitter
+  omniauth-uaa-oauth2!
   quiet_assets
   rails (= 3.2.13)
   recaptcha

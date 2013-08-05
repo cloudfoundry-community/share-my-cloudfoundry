@@ -49,4 +49,13 @@ module ApplicationHelper
     Figaro.env.respond_to?(:att_client_id) && Figaro.env.respond_to?(:att_client_secret)
   end
 
+  ##
+  # Returns if register by Cloud Foundry UAA is enabled
+  #
+  # @return [Boolean] True/False
+  def cf_uaa_register_enabled?
+    Figaro.env.respond_to?(:cf_uaa_key) && Figaro.env.respond_to?(:cf_uaa_secret) &&
+    Figaro.env.respond_to?(:cf_uaa_auth_server_url) && Figaro.env.respond_to?(:cf_uaa_token_server_url)
+  end
+
 end
