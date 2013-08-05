@@ -1,7 +1,15 @@
 ---
 applications:
-- name: me
-  memory: 256M
-  instances: 1
-  host: me
-  path: .
+  .:
+    name: me
+    framework:
+      name: standalone
+      info:
+        mem: 64M
+        description: Standalone Application
+        exec: 
+    runtime: ruby193
+    command: "bundle exec rake assets:precompile && bundle exec bin/rails server -p $VCAP_APP_PORT"
+    url: me.drnic.dev
+    mem: 256M
+    instances: 1
