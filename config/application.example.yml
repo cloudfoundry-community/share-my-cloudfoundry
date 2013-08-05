@@ -63,8 +63,8 @@ CF_REFRESH_TOKEN:
 #TWITTER_SECRET: ''
 
 # Cloud Foundry UAA Client Tokens (from UAA configuration)
-#CF_UAA_KEY: ''
-#CF_UAA_SECRET: ''
-#CF_UAA_AUTH_SERVER_URL: 'http://login.mycompany.com'
-#CF_UAA_TOKEN_SERVER_URL: 'http://uaa.mycompany.com'
+#CF_UAA_CLIENT: ''
+#CF_UAA_CLIENT_SECRET: ''
+#CF_UAA_AUTH_URL: 'http://login.mycompany.com'
+#CF_UAA_TOKEN_URL: 'http://uaa.mycompany.com'
 

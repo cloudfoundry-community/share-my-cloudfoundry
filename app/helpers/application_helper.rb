@@ -54,8 +54,8 @@ module ApplicationHelper
   #
   # @return [Boolean] True/False
   def cf_uaa_register_enabled?
-    Figaro.env.respond_to?(:cf_uaa_key) && Figaro.env.respond_to?(:cf_uaa_secret) &&
-    Figaro.env.respond_to?(:cf_uaa_auth_server_url) && Figaro.env.respond_to?(:cf_uaa_token_server_url)
+    Figaro.env.respond_to?(:cf_uaa_client) && Figaro.env.respond_to?(:cf_uaa_client_secret) &&
+    Figaro.env.respond_to?(:cf_uaa_auth_url) && Figaro.env.respond_to?(:cf_uaa_token_url)
   end
 
 end
