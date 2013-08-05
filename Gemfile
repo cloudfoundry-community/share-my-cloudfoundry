@@ -11,7 +11,12 @@ gem 'sqlite3'
 gem 'thin'
 gem 'turbolinks'
 
-gem 'cfoundry', '>= 4.0.1'
+if ENV["V1"]
+  gem 'cfoundry', '= 0.4.9'
+else
+  gem 'cfoundry', '>= 4.0.1'
+end
+
 gem 'omniauth-facebook'
 gem 'omniauth-github'
 gem 'omniauth-linkedin-oauth2'
