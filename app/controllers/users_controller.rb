@@ -80,7 +80,8 @@ class UsersController < ApplicationController
       github_orgs_url = auth_hash.extra.raw_info.organizations_url + '?access_token=' + auth_hash.credentials.token
       user_organizations = get_user_github_organizations(github_orgs_url)
       unless user_organizations.include?(Figaro.env.github_organization)
-        flash[:error] = 'User not authorized'
+        flash[:error] = "You are not a member of the github organization '#{Figaro.env.github_organization}'"
+        logger.error "User email '#{get_user_email}' is not in github organization '#{Figaro.env.github_organization}'"
         return false
       end
     end
