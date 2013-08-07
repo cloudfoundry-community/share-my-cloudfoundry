@@ -81,6 +81,7 @@ class UsersController < ApplicationController
       user_organizations = get_user_github_organizations(github_orgs_url)
       unless user_organizations.include?(Figaro.env.github_organization)
         flash[:error] = 'User not authorized'
+        logger.error "User email '#{get_user_email}' is not in github organization '#{Figaro.env.github_organization}'"
         return false
       end
     end
