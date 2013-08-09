@@ -30,7 +30,7 @@ CF_REFRESH_TOKEN:
 #CF_SPACE_ADD_AUDITOR: false
 
 # Allow register users by email (by default true).
-#EMAIL_REGISTER_ENABLED: true
+#EMAIL_REGISTER_ENABLED: false
 
 # Recaptcha keys (http://www.google.com/recaptcha/whyrecaptcha)
 #RECAPTCHA_PUBLIC_KEY: ''
