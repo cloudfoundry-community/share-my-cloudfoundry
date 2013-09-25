@@ -17,4 +17,7 @@
 %p
   cf passwd --password
   = @user_password
-%p
+- if Figaro.env.respond_to?(:cf_console_url)
+  %p
+    Or use the
+    = link_to 'Cloud Foundry console', Figaro.env.cf_console_url, target: 'new'

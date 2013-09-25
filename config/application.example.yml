@@ -29,6 +29,9 @@ CF_ADMIN_PASSWORD:
 #CF_SPACE_ADD_DEVELOPER: false
 #CF_SPACE_ADD_AUDITOR: false
 
+# Cloud Foundry Console URL
+#CF_CONSOLE_URL: https://console.run.pivotal.io
+
 # Allow register users by email (by default true).
 #EMAIL_REGISTER_ENABLED: false
 
