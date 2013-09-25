@@ -42,7 +42,11 @@ class UsersController < ApplicationController
     rescue CFoundry::UAAError => e
       user = nil
       if e.message =~ /scim_resource_already_exists/
-        flash[:error] = "User #{user_name} is already registered"
+        error_message = "User #{user_name} is already registered"
+        if Figaro.env.respond_to?(:cf_password_reset_url)
+          error_message << ' (' + view_context.link_to('Forgot password?', Figaro.env.cf_password_reset_url) + ')'
+        end
+        flash[:error] = error_message.html_safe
       else
         flash[:error] = e.message
       end

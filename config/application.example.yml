@@ -32,6 +32,9 @@ CF_ADMIN_PASSWORD:
 # Cloud Foundry Console URL
 #CF_CONSOLE_URL: https://console.run.pivotal.io
 
+# Cloud Foundry Password Reset URL
+#CF_PASSWORD_RESET_URL: https://console.run.pivotal.io/password_resets/new
+
 # Allow register users by email (by default true).
 #EMAIL_REGISTER_ENABLED: false
 
