@@ -7,9 +7,7 @@ class CfClient
   #
   # @return [void]
   def initialize
-    endpoint = Figaro.env.cf_endpoint
-    credentials = {version: 2, token: Figaro.env.cf_token, refresh_token: Figaro.env.cf_refresh_token}
-    token = CFoundry::AuthToken.from_hash(credentials)
-    @client = CFoundry::Client.get(endpoint, token)
+    @client = CFoundry::Client.get(Figaro.env.cf_endpoint)
+    @client.login(username: Figaro.env.cf_admin_user, password: Figaro.env.cf_admin_password)
   end
 end
